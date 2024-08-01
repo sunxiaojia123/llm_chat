@@ -1,1 +1,1 @@
-# chatgpt 的几种使用方法
+# chatgpt api 的几种使用方法
