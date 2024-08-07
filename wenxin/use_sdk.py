@@ -13,26 +13,24 @@ class WenxinAsyncClient:
         self.client = qianfan.ChatCompletion()
 
     async def llm_chat(self):
-        resp = await self.client.ado(model="ERNIE-4.0-8K", messages=[{
-            "role": "user",
-            "content": "你好"
-        },
-            {
-                "role": "assistant",
-                "content": "你好，请问有什么我可以帮助你的吗？无论你需要什么帮助，我都会尽力回答你的问题或提供帮助。"
-            },
-            {
-                "role": "user",
-                "content": "北京有哪些美食"
-            },
-        ])
+        resp = await self.client.ado(model="ERNIE-4.0-8K",
+                                     system="你是我的小助手",
+                                     messages=[
+                                         {
+                                             "role": "user",
+                                             "content": "北京有哪些美食"
+                                         },
+                                     ])
         print(resp["body"])
 
     async def llm_chat_stream(self):
-        resp = await self.client.ado(model="ERNIE-4.0-8K", messages=[{
-            "role": "user",
-            "content": "简单介绍下故宫"
-        }], stream=True)
+        resp = await self.client.ado(model="ERNIE-4.0-8K",
+                                     system="你是我的小助手",
+                                     messages=[{
+                                         "role": "user",
+                                         "content": "简单介绍下故宫"
+                                     }],
+                                     stream=True)
 
         async for r in resp:
             print(r["body"])
